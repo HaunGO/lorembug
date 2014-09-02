@@ -45,7 +45,13 @@ app.set('view engine', 'ejs')
 })
 .use(function(req, res, next) {
     res.status(404);
-    gm(imagePath + image404)
+    gm(imagePath + image404).stream(function(err, stdout, stderr) {
+        res.set('Content-Type', 'image/jpeg');
+        if (err) {
+            console.log(err);
+        }
+        stdout.pipe(res);
+    });
 
 })
 .listen(7076);
