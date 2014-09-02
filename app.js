@@ -4,17 +4,17 @@ var express = require('express'),
     app = express();
 var imagePath = './images/',
     image404 = 'status404.jpg',
-    IMAGE_POOL = fs.readdirSync(imagePath).filter(function(name) {
+    imagePool = fs.readdirSync(imagePath).filter(function(name) {
         return name !== image404;
     }),
-    IMAGE_POOL_COUNT = IMAGE_POOL.length;
+    imagePoolLength = imagePool.length;
 
 app.set('view engine', 'ejs')
 .use(express.static(__dirname + '/public'))
 .get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
     var width = req.params[0],
         height = req.params[1],
-        id = IMAGE_POOL[Math.floor(Math.random() * IMAGE_POOL_COUNT)];
+        id = imagePool[Math.floor(Math.random() * imagePoolLength)];
     if (width > 1920) {
         width = 1920;
     }
@@ -46,12 +46,6 @@ app.set('view engine', 'ejs')
 .use(function(req, res, next) {
     res.status(404);
     gm(imagePath + image404)
-    .stream(function(err, stdout, stderr) {
-        res.set('Content-Type', 'image/jpeg');
-        if (err) {
-            console.log(err);
-        }
-        stdout.pipe(res);
-    });
+
 })
 .listen(7076);
