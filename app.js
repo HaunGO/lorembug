@@ -5,7 +5,7 @@ var express = require('express'),
 var imagePath = './images/';
 var MAX_ID = fs.readdirSync(imagePath).length - 2;
 
-function generateImage(res, url, width, height, options) {
+function generateImage(res, url, width, height) {
     var handle = gm(imagePath + url)
     .resize(width, height, '^')
     .gravity('Center')
@@ -40,7 +40,7 @@ app.get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
     if (id < 10) {
         id = '0' + id;
     }
-    generateImage(res, id + '.jpg', width, height, options);
+    generateImage(res, id + '.jpg', width, height);
 });
 app.get('/', function(req, res) {
     res.render('index.ejs');
