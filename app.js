@@ -20,13 +20,13 @@ function generateImage(res, url, width, height) {
     });
 }
 app.set('view engine', 'ejs');
-app.use('/public', express.static('public'));
 app.use(app.router);
+app.use(express.static(__dirname + '/public'));
 app.use(function(req, res, next) {
-	console.log(req);
     res.status(404);
     generateImage(res, 'status404.jpg', 404, 300);
 });
+app.use('/public', express.static('public'));
 app.get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
     var width = req.params[0],
         height = req.params[1];
@@ -49,7 +49,6 @@ app.get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
     generateImage(res, id + '.jpg', width, height);
 });
 app.get('/', function(req, res) {
-	console.log('here');
     res.render('index.ejs');
 })
 app.listen(7076);
