@@ -10,12 +10,7 @@ function generateImage(res, url, width, height, options) {
     .resize(width, height, '^')
     .gravity('Center')
     .crop(width, height)
-    .fill('white');
-    options.forEach(function(option) {
-    	var fn = Object.keys(option)[0];
-    	handle[fn](option[fn]);
-    })
-    handle.stream(function(err, stdout, stderr) {
+    .stream(function(err, stdout, stderr) {
         res.set('Content-Type', 'image/jpeg');
         if (err) {
             console.log(err);
@@ -29,15 +24,6 @@ app.use(express.static(__dirname + '/public'));
 app.get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
     var width = req.params[0],
         height = req.params[1];
-    var options = ['blur','contrast','matte','matteColor','monochrome','negative','quality','sepia','swirl'].map(function(key) {
-    	if( key in req.query ) {
-    		var obj = {};
-    		obj[key] = !req.query[key] ? true : req.query[key];
-    		return obj;
-    	}
-    	return false;
-    }).filter(Boolean);
-
     if (width > 1920) {
         width = 1920;
     }
@@ -54,7 +40,6 @@ app.get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
     if (id < 10) {
         id = '0' + id;
     }
-    console.log(options);
     generateImage(res, id + '.jpg', width, height, options);
 });
 app.get('/', function(req, res) {
