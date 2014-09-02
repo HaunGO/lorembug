@@ -21,10 +21,6 @@ function generateImage(res, url, width, height) {
 }
 
 app.set('view engine', 'ejs');
-app.use(function(err, req, res, next) {
-    res.status(404);
-    generateImage(res, 'status404.jpg', 404, 300);
-});
 app.use(express.static(__dirname + '/public'));
 app.get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
     var width = req.params[0],
@@ -49,5 +45,9 @@ app.get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
 });
 app.get('/', function(req, res) {
     res.render('index.ejs');
-})
+});
+app.use(function(req, res, next) {
+    res.status(404);
+    generateImage(res, 'status404.jpg', 404, 300);
+});
 app.listen(7076);
