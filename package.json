@@ -1,13 +1,24 @@
 {
   "name": "lorempizza.com",
-  "version": "0.0.1",
-  "description": "dummy image service",
+  "version": "0.0.2",
+  "description": "",
   "main": "app.js",
   "dependencies": {
-    "ejs": "^1.0.0",
-    "express.io": "^1.1.13",
-    "gm": "^1.16.0"
+    "ejs": "~1.0.0",
+    "express": "~4.8.7",
+    "gm": "~1.16.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rlemon/lorempizza.com.git"
   },
   "author": "rlemon",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rlemon/lorempizza.com/issues"
+  }
 }

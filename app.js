@@ -1,4 +1,4 @@
-var express = require('express.io'),
+var express = require('express'),
     gm = require('gm'),
     fs = require('fs'),
     app = express();
@@ -19,14 +19,13 @@ function generateImage(res, url, width, height) {
         stdout.pipe(res);
     });
 }
+
 app.set('view engine', 'ejs');
-app.use(app.router);
-app.use(express.static(__dirname + '/public'));
-app.use(function(req, res, next) {
+app.use(function(err, req, res, next) {
     res.status(404);
     generateImage(res, 'status404.jpg', 404, 300);
 });
-app.use('/public', express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.get(/[\/i]?\/([0-9]+)\/([0-9]+)/, function(req, res) {
     var width = req.params[0],
         height = req.params[1];
