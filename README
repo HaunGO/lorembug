@@ -1,0 +1,1 @@
+run `gulp` then `npm start` or deploy everything in /dist after gulp finishes. 
