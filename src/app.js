@@ -4,6 +4,7 @@ import fs from 'fs';
 
 let app = express();
 let imagePath = __dirname + '/images/';
+// let imagePath = __dirname + 'http://www.brandonhaun.com/lab/lorembug/images/';
 let image404 = 'notfound.jpg';
 let imagePool = fs.readdirSync(imagePath).filter(fname => fname !== image404);
 
